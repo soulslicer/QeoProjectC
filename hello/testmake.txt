@@ -1,0 +1,75 @@
+#!/bin/sh
+#
+#Front end for GCC compiler.
+#
+# filename = C-GUI
+
+WFLOADED=0
+
+cd C
+
+while [ $# -eq 0 ]
+do
+ 
+WORK=`cat WORKFILE.txt`
+WORKC=$WORK".c"
+WFLOADED=1
+
+   CHOICE=`zenity --title="C-GPIO" --text="Work File:    "$WORK --height=400 --width=300 \
+--list --column="Front End For GCC Compiler" "Create or Select Work FIle" "Edit    "$WORKC "Compile    "$WORKC "Execute    "$WORK "Terminal" "Exit"`
+
+ #  clear
+
+   if [ "$CHOICE" = "Create or Select Work FIle" ]; then
+      clear
+      TEMP=`zenity --entry --entry-text="Currently:  "$WORK --width=300`
+      if [ $TEMP ]; then
+         WORK=$TEMP
+         WORKC=$WORK".c"
+         WFLOADED=1
+         echo $WORK > WORKFILE.txt 
+     fi
+   fi
+
+   if [ "$CHOICE" = "Edit    "$WORKC ]; then
+      if [ $WFLOADED -gt 0 ]; then
+         gedit $WORK".c"
+      else
+         zenity --info --text="Work file is empty, create or select a work file." --timeout=2
+      fi
+   fi
+
+   if [ "$CHOICE" = "Compile    "$WORKC ]; then
+      if [ $WFLOADED -gt 0 ]; then
+         clear
+         cc -o $WORK $WORK.c
+      else
+         zenity --info --text="Work file is empty, create or select a work file." --timeout=2
+      fi
+   fi
+
+   if [ "$CHOICE" = "Execute    "$WORK ]; then
+      if [ $WFLOADED -gt 0 ]; then
+         clear
+         echo " " 
+         sudo ./$WORK
+         echo " "
+         echo -n "Press <Enter> to continue: "
+         read WORKHOLD
+         clear
+      else
+         zenity --info --text="Work file is empty, create or select a work file." --timeout=2
+      fi
+   fi
+
+   if [ "$CHOICE" = "Terminal" ]; then
+      clear
+      lxterminal
+   fi
+
+   if [ "$CHOICE" = "Exit" ]; then
+      clear
+      exit 0
+   fi
+
+done
