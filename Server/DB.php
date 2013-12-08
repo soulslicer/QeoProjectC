@@ -2,17 +2,9 @@
 
 
 // //getSearch
-define("GETVAR_USERID", "userid");
-define("GETVAR_BIOJSON", "biojson");
-define("POSTVAR_USERID", "userid");
-define("POSTVAR_BIOJSON", "biojson");
-define("POSTVAR_CARD", "card");
-define("POSTVAR_HEADER", "header");
-
-define("POSTVAR_USER", "user");
-define("POSTVAR_PASS", "pass");
-define("POSTVAR_NAME", "name");
-
+define("ROOM", "room");
+define("COUNT", "count");
+define("TIME", "time");
 
 // define("GETVAR_EVENTID", "eventid");
 
@@ -21,7 +13,7 @@ function getSQLConnection(){
 	$host="localhost";
 	$user="root";
 	$password="root";
-	$database="resonate";
+	$database="qeo";
 	$link = mysqli_connect($host,$user,$password,$database);
 	return $link;
 }
