@@ -18,7 +18,10 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+
 #include <wiringPi.h>
+#include <errno.h>
+#include <wiringSerial.h>
 
 #include <qeo/api.h>
 
@@ -97,9 +100,51 @@ static char *default_user(void)
     return name;
 }
 
+PI_THREAD (serialReader)
+{
+  int fd ;
+  (void)piHiPri (10) ;
+
+  if ((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0)
+  {
+    fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
+    return 1 ;
+  }
+
+  for (;;)
+  {
+    delay(1);
+    printf("a\n");
+    putchar (serialGetchar (fd)) ;
+    fflush (stdout) ;
+  }
+}
+
+PI_THREAD (qeoReader)
+{
+  (void)piHiPri (10) ;
+
+  if ((fd = serialOpen ("/dev/ttyAMA0", 9600)) < 0)
+  {
+    fprintf (stderr, "Unable to open serial device: %s\n", strerror (errno)) ;
+    return 1 ;
+  }
+
+  for (;;)
+  {
+    delay(1);
+    printf("a\n");
+    putchar (serialGetchar (fd)) ;
+    fflush (stdout) ;
+  }
+}
+
 int main(int argc, const char **argv)
 {
-    wiringPiSetup () ;
+    //wiringPiSetup () ;
+    wiringPiSetupSys () ;
+    piThreadCreate (serialReader) ;
+
     qeo_factory_t *qeo;
     qeo_event_writer_t *msg_writer;
     qeo_event_reader_t *msg_reader;
