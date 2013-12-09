@@ -1,0 +1,41 @@
+ec2-54-219-167-115.us-west-1.compute.amazonaws.com
+54.219.167.115
+
+
+ec2-54-215-213-168.us-west-1.compute.amazonaws.com
+
+
+sshfs -i Hack.pem root@ec2-54-219-167-115.us-west-1.compute.amazonaws.com:/var/www/ ~/Desktop/Hackathon/Server
+
+sshfs -o ssh_command="ssh -i Hack.pem" root@ec2-54-219-167-115.us-west-1.compute.amazonaws.com: ~/Desktop/Hackathon/Server
+
+sshfs -o "IdentityFile=/Users/Raaj/Desktop/Hackathon/Hack.pem" ec2-user@ec2-54-215-213-168.us-west-1.compute.amazonaws.com:/var/www ~/Desktop/Hackathon/AA
+
+
+
+git clone ssh://ec2-user@ec2-54-215-213-168.us-west-1.compute.amazonaws.com:/var/www/html/Server/resonate
+
+curl -i -X POST -H Accept:application/json -H Content-Type:application/json  -d '{"userid":"1","title":"Title","location":"Location","objective":"Objective","email":"Email","linkedin":"Linkedin"}' 'http://ec2-54-215-213-168.us-west-1.compute.amazonaws.com/Server/postUserBio.php/'
+
+git clone ssh://ec2-user@ec2-54-215-213-168.us-west-1.compute.amazonaws.com:/var/www/html/Server/resonate/.git
+
+./git.sh -i ~/.ssh/Hack.pem clone ssh://ec2-user@ec2-54-215-213-168.us-west-1.compute.amazonaws.com:/var/www/html/Server/resonate/.git
+
+
+cat ~/.ssh/Hack.pem | ssh -i Hack.pem ec2-user@ec2-54-215-213-168.us-west-1.compute.amazonaws.com "cat >> .ssh/authorized_keys"
+
+
+addBullet(Header,Bullet json)
+removeBullet(Header, Bullet json)
+
+
+updateBullet(Header, old bullet json, new bullet json)
+
+
+postCard
+
+addHeader(Header)
+removeHeader(Header)
+updateHeader(old Header, new Header)
+
+sshfs -o "IdentityFile=/Users/Raaj/Desktop/Hackathon/Hack.pem" ec2-user@ec2-54-215-213-168.us-west-1.compute.amazonaws.com:/etc/httpd/conf ~/A
